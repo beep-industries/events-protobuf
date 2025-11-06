@@ -9,3 +9,4 @@ prost = "0.14.1"
 
 [build-dependencies]
 prost-build = "0.14.1"
+walkdir = "2.5.0"
