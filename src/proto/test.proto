@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// Example Protobuf package and message
+
+package test_svc.merchandise; // This gets translated into a Rust module.
+
+// Types will be available in  the test_svc::merchandise module.
+
+// A snazzy new shirt!
+message Shirt {
+    // Label sizes
+    enum Size {
+        SMALL = 0;
+        MEDIUM = 1;
+        LARGE = 2;
+    }
+
+    // The base color
+    repeated string color = 1;
+
+    // The size as stated on the label
+    Size size = 2;
+
+    // An optional bool to allow for a visual on the shirt
+    optional bool graphics = 3;
+}
