@@ -4,17 +4,10 @@ on:
   push:
   pull_request:
 
-env: 
+env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  install_protoc:
-    name: Install Protoc
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y protobuf-compiler
-      protoc --version
-
   build_and_test:
     name: Beep Protobuf lib - latest
     runs-on: ubuntu-latest
@@ -24,7 +17,13 @@ jobs:
           - stable
     steps:
       - uses: actions/checkout@v4
-      - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
+      - name: Install Rust
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+          export PATH="$HOME/.cargo/bin:$PATH"
+          rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
+      - name: Install Protoc
+        run: sudo apt-get update && sudo apt-get install -y protobuf-compiler && protoc --version
       - run: cargo build --verbose
       - run: cargo test --verbose
-
