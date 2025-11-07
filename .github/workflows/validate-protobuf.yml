@@ -1,0 +1,14 @@
+name: Validate Protobuf
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate_protobuf:
+    name: Cargo Build & Test
+    uses: ./.github/workflows/validate-rust.yml
+    with:
+      toolchain: stable
+      install-protoc: true
+
