@@ -7,7 +7,7 @@ on:
 jobs:
   validate_protobuf:
     name: Cargo Build & Test
-    uses: ./.github/workflows/validate-rust.yml
+    uses: beep-industries/actions/.github/workflows/validate-rust.yml@main
     with:
       toolchain: stable
       install-protoc: true
