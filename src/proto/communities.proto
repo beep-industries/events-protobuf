@@ -12,8 +12,8 @@ message PermissionBitmask {
 
 // Permission override action types
 enum OverrideAction {
-  OVERRIDE_ACTION_ALLOW = 1;
-  OVERRIDE_ACTION_DENY = 2;
+  OVERRIDE_ACTION_ALLOW = 0;
+  OVERRIDE_ACTION_DENY = 1;
 }
 
 message CreateServer {
