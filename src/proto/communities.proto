@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+// Communities service authorization-related database change events
+package communities.events;
+
+// Common types and enums
+
+// Permission bitmask type for role capabilities
+message PermissionBitmask {
+  uint64 value = 1; // Hexadecimal bitmask value representing permissions
+}
+
+// Permission override action types
+enum OverrideAction {
+  OVERRIDE_ACTION_ALLOW = 1;
+  OVERRIDE_ACTION_DENY = 2;
+}
+
+// Server deletion event
+// Sample: A server with ID "srv_123" is deleted by admin "usr_456"
+message DeleteServer {
+  string server_id = 1; // ID of the server being deleted
+  string server_name = 2; // Name of the server (for audit purposes)
+  repeated string affected_users = 3; // List of user IDs who were members of this server
+  repeated string deleted_roles = 4; // List of role IDs that were deleted with the server
+}
+
+// User joins a server event
+// Sample: User "usr_789" joins server "srv_123"
+message UserJoinServer {
+  string user_id = 1; // ID of the user joining the server
+  string server_id = 2; // ID of the server being joined
+}
+
+// User leaves a server event
+// Sample: User "usr_789" leaves server "srv_123" (voluntary or kicked)
+message UserLeaveServer {
+  string user_id = 1; // ID of the user leaving the server
+  string server_id = 2; // ID of the server being left
+}
+
+// Role creation or update event
+// Sample: Role "Moderator" with ID "role_456" is created/updated in server "srv_123"
+message UpsertRole {
+  string role_id = 1; // ID of the role being created or updated
+  string server_id = 2; // ID of the server containing this role
+  PermissionBitmask permissions_bitmask = 3; // Hexadecimal bitmask of all permissions granted by this role
+}
+
+// Role deletion event
+// Sample: Role "Moderator" with ID "role_456" is deleted from server "srv_123"
+message DeleteRole {
+  string role_id = 1; // ID of the role being deleted
+}
+
+// User assigned to role event
+// Sample: User "usr_789" is assigned role "Moderator" (role_456) in server "srv_123"
+message MemberAssignedToRole {
+  string user_id = 1; // ID of the user being assigned the role
+  string role_id = 2; // ID of the role being assigned
+}
+
+// Permission override creation or update event
+// Sample: User "usr_789" gets explicit ALLOW override for READ permission in channel "ch_abc"
+message UpsertPermissionOverride {
+  string channel_id = 1; // ID of the channel where override applies
+  PermissionBitmask permission_bitmask = 2; // The specific permission bitmask being overridden
+  OverrideAction action = 3; // Whether this override allows or denies the permission
+  OverrideTarget target = 4; // What entity this override applies to
+
+  // The target of the permission override (user or role)
+  message OverrideTarget {
+    oneof target {
+      string user_id = 1; // Override applies to specific user
+      string role_id = 2; // Override applies to specific role
+    }
+  }
+}
+
+// User joins private channel event
+// Sample: User "usr_789" gains access to private channel "ch_secret" in server "srv_123"
+message UserJoinPrivateChannel {
+  string user_id = 1; // ID of the user gaining access
+  string channel_id = 2; // ID of the private channel
+}
+
+// User leaves private channel event
+// Sample: User "usr_789" loses access to private channel "ch_secret" in server "srv_123"
+message UserLeavePrivateChannel {
+  string user_id = 1; // ID of the user losing access
+  string channel_id = 2; // ID of the private channel
+}
