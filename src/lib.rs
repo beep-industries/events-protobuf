@@ -6,3 +6,7 @@ pub mod test_svc_merchandise {
 pub mod communities_events {
     include!(concat!(env!("OUT_DIR"), "/communities.events.rs"));
 }
+
+pub mod messages_events {
+    include!(concat!(env!("OUT_DIR"), "/messages.events.rs"));
+}
