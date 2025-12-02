@@ -5,6 +5,11 @@ package messages.events;
 
 // Common types and enums
 
+message NotifyEntry {
+  string type = 1; // Type of notify entry (e.g., "user", "role")
+  string id = 2; // ID of the user or role to notify
+}
+
 // New message in a channel event
 message CreateMessageEvent {
   string message_id = 1; // ID of the newly created message
@@ -20,9 +25,5 @@ message CreateMessageEvent {
     string url = 3;
   }
   repeated Attachment attachments = 8;
-  message NotifyEntry {
-    string type = 1; // Type of notify entry (e.g., "user", "role")
-    string id = 2; // ID of the user or role to notify
-  }
   repeated NotifyEntry notify_entries = 9; // Entries to notify
 }
