@@ -106,3 +106,14 @@ message UserLeavePrivateChannel {
   string user_id = 1; // ID of the user losing access
   string channel_id = 2; // ID of the private channel
 }
+
+// Channel creation event
+// Sample: Channel "General" with ID "ch_abc" is created in server "srv_123"
+message ChannelCreated {
+  string channel_id = 1; // ID of the newly created channel
+  string server_id = 2; // ID of the server containing this channel
+}
+
+message ChannelDeleted {
+  string channel_id = 1; // ID of the deleted channel
+}
