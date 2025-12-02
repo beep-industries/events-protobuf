@@ -17,15 +17,13 @@ message CreateMessageEvent {
   string author_id = 3; // ID of the user who authored the message
   string content = 4; // Content of the message
   string reply_to_message_id = 5; // ID of the message being replied to, if any
-  bool is_pinned = 6; // Whether the message is pinned
-  bool is_edited = 7; // Whether the message has been edited
   message Attachment {
     string id = 1;
     string name = 2;
     string url = 3;
   }
-  repeated Attachment attachments = 8;
-  repeated NotifyEntry notify_entries = 9; // Entries to notify
+  repeated Attachment attachments = 6;
+  repeated NotifyEntry notify_entries = 7; // Entries to notify
 }
 
 // Message update event
