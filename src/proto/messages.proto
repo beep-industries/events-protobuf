@@ -27,3 +27,16 @@ message CreateMessageEvent {
   repeated Attachment attachments = 8;
   repeated NotifyEntry notify_entries = 9; // Entries to notify
 }
+
+// Message update event
+message UpdateMessageEvent {
+  string message_id = 1; // ID of the newly created message
+  string content = 2; // Content of the message
+  optional bool is_pinned = 3; // Whether the message is pinned
+  repeated NotifyEntry notify_entries = 4; // Entries to notify
+}
+
+// Message deletion event
+message DeleteMessageEvent {
+  string message_id = 1; // ID of the newly created message
+}
