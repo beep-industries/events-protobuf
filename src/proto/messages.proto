@@ -29,7 +29,7 @@ message CreateMessageEvent {
 // Message update event
 message UpdateMessageEvent {
   string message_id = 1; // ID of the newly created message
-  string content = 2; // Content of the message
+  optional string content = 2; // Content of the message
   optional bool is_pinned = 3; // Whether the message is pinned
   repeated NotifyEntry notify_entries = 4; // Entries to notify
 }
