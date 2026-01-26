@@ -32,9 +32,11 @@ message UpdateMessageEvent {
   optional string content = 2; // Content of the message
   optional bool is_pinned = 3; // Whether the message is pinned
   repeated NotifyEntry notify_entries = 4; // Entries to notify
+  string channel_id = 5; // ID of the channel where the message was posted, needed for routing to WS
 }
 
 // Message deletion event
 message DeleteMessageEvent {
   string message_id = 1; // ID of the newly created message
+  string channel_id = 2; // ID of the channel where the message was posted, needed for routing to WS
 }
