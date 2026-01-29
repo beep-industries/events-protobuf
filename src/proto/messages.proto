@@ -19,7 +19,6 @@ message CreateMessageEvent {
   string reply_to_message_id = 5; // ID of the message being replied to, if any
   message Attachment {
     string id = 1;
-    string name = 2;
     string url = 3;
   }
   repeated Attachment attachments = 6;
